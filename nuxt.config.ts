@@ -16,8 +16,9 @@ export default defineNuxtConfig({
     dirs: ['./store'],
   },
   image: {
-    provider: 'ipx',
+    provider: 'netlify',
   },
+
   head: {
     meta: [
       { charset: 'utf-8' },
