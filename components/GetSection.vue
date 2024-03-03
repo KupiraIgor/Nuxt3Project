@@ -49,12 +49,26 @@ const onShowMore = async () => {
     margin-bottom: 5rem;
     display: grid;
     grid-template-columns: repeat(3, calc(33.333% - 2rem));
-    gap: 3rem;
+    grid-gap: 3rem;
   }
 
   &__btn {
     display: flex;
     justify-content: center;
+  }
+
+  @media (max-width: 1023px) {
+    &__items {
+      grid-template-columns: repeat(2, calc(50% - 0.8rem));
+      grid-gap: 1.6rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    &__items {
+      grid-template-columns: 1fr;
+      grid-gap: 2rem;
+    }
   }
 }
 </style>

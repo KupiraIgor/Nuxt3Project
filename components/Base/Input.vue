@@ -74,7 +74,7 @@ const onBlurInput = () => {
   &__input {
     border-radius: 0.4rem;
     border: 1px solid var(--color-gray);
-    padding: 1.4rem 1.6rem;
+    padding: 1.3rem 1.6rem;
     min-height: 5.4rem;
     width: 100%;
     background: var(--color-bg-page);
@@ -98,6 +98,7 @@ const onBlurInput = () => {
   &__phone {
     font-size: 1.2rem;
     color: var(--color-gray-2);
+    padding-left: 1.6rem;
   }
 
   &._error {

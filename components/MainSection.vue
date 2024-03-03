@@ -8,7 +8,7 @@
           class="main-section__img"
           src="./first-section-bg.jpg"
           alt="bg-img"
-          :imgAttrs="{ style: 'wight:100%; height:100%;' }"
+          :imgAttrs="{ style: 'width:100%; height:100%; object-fit: cover;' }"
         />
         <div class="main-section__content">
           <h1 class="main-section__title title">Test assignment for front-end developer</h1>
@@ -74,6 +74,19 @@
     color: var(--color-white);
     text-align: center;
     margin-bottom: 3rem;
+  }
+
+  @media (max-width: 1100px) {
+    .container {
+      padding: 0 !important;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    &__body {
+      min-height: 50rem;
+      padding: 0 1.6rem;
+    }
   }
 }
 </style>

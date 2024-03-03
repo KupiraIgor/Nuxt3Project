@@ -28,8 +28,10 @@
   }
 
   &__logo {
-    width: 10.4rem;
-    height: 2.6rem;
+    img {
+      width: 10.4rem;
+      height: 2.6rem;
+    }
   }
 
   &__buttons {

@@ -41,7 +41,6 @@ const localValue = computed({
 .input-radio {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
   cursor: pointer;
 
   &__input {

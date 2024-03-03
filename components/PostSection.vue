@@ -1,6 +1,6 @@
 <script setup>
 import { useVuelidate } from '@vuelidate/core';
-import { required, minLength, maxLength, alpha, helpers, or } from '@vuelidate/validators';
+import { required, minLength, maxLength, alpha, helpers } from '@vuelidate/validators';
 import { useTokenStore } from '@/store/token';
 import { useUsersStore } from '@/store/users';
 const storeToken = useTokenStore();
@@ -13,9 +13,9 @@ const isSent = ref(false);
 const { data: positions } = await useFetch('https://frontend-test-assignment-api.abz.agency/api/v1/positions');
 
 const formData = ref({
-  name: 'igor',
-  email: 'kupira@gmail.com',
-  phone: '380965858245',
+  name: '',
+  email: '',
+  phone: '',
   position_id: 1,
   photo: '',
 });
@@ -113,6 +113,7 @@ const submitForm = async () => {
                 :key="pos.id"
                 v-model="formData.position_id"
                 :data="pos"
+                class="post-section__radio"
               />
             </div>
             <BaseInputFile
@@ -164,14 +165,22 @@ const submitForm = async () => {
   }
 
   &__phone {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 
   &__position {
-    margin-bottom: 5rem;
+    margin-bottom: 4.5rem;
 
     &-title {
       margin-bottom: 1rem;
+    }
+  }
+
+  &__radio {
+    margin-bottom: 0.8rem;
+
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 
