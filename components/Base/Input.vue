@@ -14,6 +14,16 @@ const props = defineProps({
     default: '',
     required: false,
   },
+  inputmode: {
+    type: String,
+    default: '',
+    required: false,
+  },
+  name: {
+    type: String,
+    default: '',
+    required: false,
+  },
   phone: {
     type: Boolean,
     required: false,
@@ -49,6 +59,8 @@ const onBlurInput = () => {
       <input
         :value="modelValue"
         :type="type"
+        :inputmode="inputmode"
+        :name="name"
         class="base-input__input"
         @input="emit('update:modelValue', $event.target.value)"
         @focus="onFocusInput"

@@ -87,6 +87,7 @@ const submitForm = async () => {
               v-model="formData.name"
               class="post-section__input"
               placeholder="Your name"
+              name="name"
               :error="v$.name.$errors.length"
               :errors="v$.name.$errors"
             />
@@ -94,13 +95,17 @@ const submitForm = async () => {
               v-model="formData.email"
               class="post-section__input"
               placeholder="Email"
+              inputmode="email"
+              name="email"
               :error="v$.email.$errors.length"
               :errors="v$.email.$errors"
             />
             <BaseInput
               v-model="formData.phone"
               class="post-section__phone"
+              inputmode="numeric"
               type="number"
+              name="phone"
               placeholder="Phone"
               phone
               :error="v$.phone.$errors.length"
