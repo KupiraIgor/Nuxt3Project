@@ -4,7 +4,7 @@
   <section class="main-section">
     <div class="container">
       <div class="main-section__body">
-        <NuxtImg class="main-section__img" src="/first-section-bg.jpg" />
+        <NuxtPicture class="main-section__img" src="/first-section-bg.jpg" />
         <div class="main-section__content">
           <h1 class="main-section__title title">Test assignment for front-end developer</h1>
           <p class="main-section__subtitle">
