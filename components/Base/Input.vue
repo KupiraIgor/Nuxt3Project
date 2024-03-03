@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { IMaskComponent } from 'vue-imask';
+
 const props = defineProps({
   modelValue: {
     type: String,
@@ -15,11 +17,6 @@ const props = defineProps({
     required: false,
   },
   inputmode: {
-    type: String,
-    default: '',
-    required: false,
-  },
-  name: {
     type: String,
     default: '',
     required: false,
@@ -56,11 +53,26 @@ const onBlurInput = () => {
   <label class="base-input" :class="{ _error: error }">
     <span class="base-input__wrap">
       <span class="base-input__placeholder" :class="{ _focus: isFocusInput || modelValue }"> {{ placeholder }} </span>
+      <IMaskComponent
+        v-if="phone"
+        v-bind="{
+          mask: '+{38}(000)000-00-00',
+        }"
+        :value="modelValue"
+        :unmask="true"
+        inputmode="numeric"
+        class="base-input__input"
+        @input="emit('update:modelValue', $event.target.value)"
+        @focus="onFocusInput"
+        @blur="onBlurInput"
+        maxlength="17"
+      />
+
       <input
+        v-else
         :value="modelValue"
         :type="type"
         :inputmode="inputmode"
-        :name="name"
         class="base-input__input"
         @input="emit('update:modelValue', $event.target.value)"
         @focus="onFocusInput"

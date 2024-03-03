@@ -20,6 +20,19 @@ const formData = ref({
   photo: '',
 });
 
+const phoneData = ref('');
+
+watch(phoneData, () => {
+  formData.value.phone = phoneData.value.replace(/[^+\d]/g, '');
+});
+
+watch(formData.value, () => {
+  if (responseError.value) {
+    responseError.value = '';
+  }
+});
+
+const responseError = ref('');
 const errorPhoto = ref(false);
 const callBackErrorPhoto = (e) => {
   errorPhoto.value = e;
@@ -56,17 +69,19 @@ const submitForm = async () => {
     formSend.append('position_id', formData.value.position_id);
     formSend.append('photo', formData.value.photo);
 
-    const { data: response } = await useFetch('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
+    const { data: response, error } = await useFetch('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
       method: 'post',
       body: formSend,
       headers: {
         Token: tokenStore,
       },
     });
-    if (response.value.success) {
+    if (response?.value?.success) {
       await storeUsers.fetchUsers();
       storeUsers.resetPages();
       isSent.value = true;
+    } else {
+      responseError.value = error.value.data.message;
     }
   }
   isLoading.value = false;
@@ -87,7 +102,6 @@ const submitForm = async () => {
               v-model="formData.name"
               class="post-section__input"
               placeholder="Your name"
-              name="name"
               :error="v$.name.$errors.length"
               :errors="v$.name.$errors"
             />
@@ -96,16 +110,14 @@ const submitForm = async () => {
               class="post-section__input"
               placeholder="Email"
               inputmode="email"
-              name="email"
               :error="v$.email.$errors.length"
               :errors="v$.email.$errors"
             />
             <BaseInput
-              v-model="formData.phone"
+              v-model="phoneData"
               class="post-section__phone"
               inputmode="numeric"
               type="number"
-              name="phone"
               placeholder="Phone"
               phone
               :error="v$.phone.$errors.length"
@@ -128,6 +140,7 @@ const submitForm = async () => {
               :error="v$.photo.$errors.length"
               :errors="v$.photo.$errors"
             />
+            <span v-if="responseError" class="post-section__global-error">{{ responseError }}</span>
             <div class="post-section__btn">
               <BaseButton type="submit">Sign up</BaseButton>
             </div>
@@ -190,10 +203,15 @@ const submitForm = async () => {
   }
 
   &__photo {
-    margin-bottom: 5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  &__global-error {
+    color: var(--color-red);
   }
 
   &__btn {
+    margin-top: 2.5rem;
     display: flex;
     justify-content: center;
   }
