@@ -114,6 +114,7 @@ const customValidatePhotoSizes = () => {
     border-radius: 0 0.4rem 0.4rem 0;
     border: 1px solid var(--color-gray);
     width: 100%;
+    border-left: none;
 
     span {
       position: absolute;
@@ -126,7 +127,6 @@ const customValidatePhotoSizes = () => {
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 100%;
-      border-left: none;
     }
   }
 

@@ -4,6 +4,7 @@
   <section class="main-section">
     <div class="container">
       <div class="main-section__body">
+        <NuxtImg class="main-section__img" src="/first-section-bg.jpg" />
         <div class="main-section__content">
           <h1 class="main-section__title title">Test assignment for front-end developer</h1>
           <p class="main-section__subtitle">
@@ -24,8 +25,6 @@
 
   &__body {
     position: relative;
-    background-image: url('/first-section-bg.jpg');
-    background-size: cover;
     min-height: 65rem;
     display: flex;
     justify-content: center;
@@ -34,6 +33,7 @@
     &::after {
       content: '';
       position: absolute;
+      z-index: 1;
       top: 0;
       left: 0;
       width: 100%;
@@ -42,9 +42,17 @@
     }
   }
 
+  &__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
   &__content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;

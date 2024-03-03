@@ -28,7 +28,8 @@
   }
 
   &__logo {
-    max-width: 10.4rem;
+    width: 10.4rem;
+    height: 2.6rem;
   }
 
   &__buttons {
