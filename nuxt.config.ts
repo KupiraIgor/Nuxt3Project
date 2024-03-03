@@ -18,15 +18,11 @@ export default defineNuxtConfig({
   image: {
     provider: 'netlify',
   },
-
-  head: {
-    meta: [
-      { charset: 'utf-8' },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1, maximum-scale=1',
-      },
-      { title: 'TestTask' },
-    ],
+  app: {
+    head: {
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+      title: 'TestTask',
+    },
   },
 });
