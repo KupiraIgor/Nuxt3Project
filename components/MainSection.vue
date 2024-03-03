@@ -1,4 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const onScrollToSingUp = () => {
+  const el = document.querySelector('#post-section');
+  if (el) {
+    window.scrollTo({
+      top: el.getBoundingClientRect().top + window.scrollY,
+      behavior: 'smooth',
+    });
+  }
+};
+</script>
 
 <template>
   <section class="main-section">
@@ -17,7 +27,7 @@
             understanding of User design thinking as they'll be building web interfaces with accessibility in mind. They
             should also be excited to learn, as the world of Front-End Development keeps evolving.
           </p>
-          <BaseButton>Sign up</BaseButton>
+          <BaseButton @click="onScrollToSingUp">Sign up</BaseButton>
         </div>
       </div>
     </div>

@@ -1,4 +1,24 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const onScrollToSingUp = () => {
+  const el = document.querySelector('#post-section');
+  if (el) {
+    window.scrollTo({
+      top: el.getBoundingClientRect().top + window.scrollY,
+      behavior: 'smooth',
+    });
+  }
+};
+
+const onScrollToUsers = () => {
+  const el = document.querySelector('#get-section');
+  if (el) {
+    window.scrollTo({
+      top: el.getBoundingClientRect().top + window.scrollY,
+      behavior: 'smooth',
+    });
+  }
+};
+</script>
 
 <template>
   <header class="header">
@@ -8,8 +28,8 @@
           <img src="/logo.svg" alt="" />
         </NuxtLink>
         <div class="header__buttons">
-          <BaseButton>Users</BaseButton>
-          <BaseButton>Sign up</BaseButton>
+          <BaseButton @click="onScrollToUsers">Users</BaseButton>
+          <BaseButton @click="onScrollToSingUp">Sign up</BaseButton>
         </div>
       </div>
     </div>

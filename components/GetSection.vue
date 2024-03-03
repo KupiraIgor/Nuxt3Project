@@ -18,7 +18,7 @@ const onShowMore = async () => {
 </script>
 
 <template>
-  <section class="get-section">
+  <section class="get-section" id="get-section">
     <Transition>
       <BaseLoader v-show="isLoading" />
     </Transition>

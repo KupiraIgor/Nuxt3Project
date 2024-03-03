@@ -74,7 +74,7 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <section class="post-section">
+  <section class="post-section" id="post-section">
     <Transition>
       <BaseLoader v-show="isLoading" />
     </Transition>
