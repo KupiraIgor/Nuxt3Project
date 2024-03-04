@@ -59,7 +59,6 @@ const onBlurInput = () => {
           mask: '+{38}(000)000-00-00',
         }"
         :value="modelValue"
-        :unmask="true"
         inputmode="numeric"
         class="base-input__input"
         @input="emit('update:modelValue', $event.target.value)"

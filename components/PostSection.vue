@@ -21,9 +21,14 @@ const formData = ref({
 });
 
 const phoneData = ref('');
+const emailData = ref('');
 
 watch(phoneData, () => {
   formData.value.phone = phoneData.value.replace(/[^+\d]/g, '');
+});
+
+watch(emailData, () => {
+  formData.value.email = emailData.value.toLowerCase();
 });
 
 watch(formData.value, () => {
@@ -106,7 +111,7 @@ const submitForm = async () => {
               :errors="v$.name.$errors"
             />
             <BaseInput
-              v-model="formData.email"
+              v-model="emailData"
               class="post-section__input"
               placeholder="Email"
               inputmode="email"
@@ -146,7 +151,7 @@ const submitForm = async () => {
             </div>
           </form>
         </template>
-        <template v-else>
+        <template v-show="isSent">
           <h2 class="post-section__title title">User successfully registered</h2>
           <img src="/success-form.svg" alt="" />
         </template>
