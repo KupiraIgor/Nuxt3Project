@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { useTokenStore } from '~/stores/token';
-import type { User, Users } from '~/stores/types';
+import type { ResUser, User, Users } from '~/stores/types';
 
 export const useUsersStore = defineStore('users', () => {
   const users = ref<User[]>([]);
@@ -20,45 +20,75 @@ export const useUsersStore = defineStore('users', () => {
   };
   const fetchUsers = async () => {
     const { token }: { token: string } = useTokenStore();
-    if (token) {
-      try {
-        const res = await $fetch<Users>('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
-          headers: {
-            Token: token,
-          },
-          query: {
-            count: 6,
-          },
-        });
 
-        setUsers(res.users);
-        setTotalPages(res.total_pages);
-      } catch (e) {
-        console.log(e);
-      }
+    try {
+      const res = await $fetch<Users>('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
+        headers: {
+          Token: token,
+        },
+        query: {
+          count: 6,
+        },
+      });
+
+      setUsers(res.users);
+      setTotalPages(res.total_pages);
+    } catch (e) {
+      console.log(e);
     }
   };
 
   const fetchMoreUsers = async () => {
     const { token }: { token: string } = useTokenStore();
-    if (token) {
-      try {
-        const res = await $fetch<Users>('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
-          headers: {
-            Token: token,
-          },
-          query: {
-            page: currentPage.value,
-            count: 6,
-          },
-        });
 
-        setMoreUsers(res.users);
-      } catch (e) {
-        console.log(e);
-      }
+    try {
+      const res = await $fetch<Users>('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
+        headers: {
+          Token: token,
+        },
+        query: {
+          page: currentPage.value,
+          count: 6,
+        },
+      });
+
+      setMoreUsers(res.users);
+    } catch (e) {
+      console.log(e);
     }
   };
 
-  return { fetchUsers, fetchMoreUsers, setNextPage, resetPages, users, totalPages, currentPage };
+  const sendUser = async (data: any) => {
+    const { token }: { token: string } = useTokenStore();
+
+    const formSend = new FormData();
+    formSend.append('name', data.name);
+    formSend.append('email', data.email);
+    formSend.append('phone', data.phone);
+    formSend.append('position_id', data.position_id);
+    formSend.append('photo', data.photo);
+
+    try {
+      const res: ResUser = await $fetch('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
+        method: 'post',
+        body: formSend,
+        headers: {
+          Token: token,
+        },
+      });
+
+      await fetchUsers();
+      resetPages();
+
+      return res;
+    } catch (e: any) {
+      return {
+        success: false,
+        status: e.response.status,
+        message: e.response._data.message,
+      };
+    }
+  };
+
+  return { fetchUsers, fetchMoreUsers, setNextPage, resetPages, sendUser, users, totalPages, currentPage };
 });

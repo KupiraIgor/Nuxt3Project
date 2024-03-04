@@ -1,25 +1,27 @@
-<script setup>
+<script setup lang="ts">
 import { useVuelidate } from '@vuelidate/core';
 import { required, minLength, maxLength, alpha, helpers } from '@vuelidate/validators';
-const storeToken = useTokenStore();
+import type { Positions, ResUser, User } from '~/stores/types';
 const storeUsers = useUsersStore();
-const { token: tokenStore } = storeToRefs(storeToken);
 
-const isLoading = ref(false);
-const isSent = ref(false);
+const { data: positions } = await useFetch<Positions>(
+  'https://frontend-test-assignment-api.abz.agency/api/v1/positions',
+);
 
-const { data: positions } = await useFetch('https://frontend-test-assignment-api.abz.agency/api/v1/positions');
+const isLoading = ref<boolean>(false);
+const isSent = ref<boolean>(false);
+const isErrorPhoto = ref<boolean>(false);
+const responseError = ref<string>('');
+const phoneData = ref<string>('');
+const emailData = ref<string>('');
 
-const formData = ref({
+const formData = ref<User>({
   name: '',
   email: '',
   phone: '',
   position_id: 1,
   photo: '',
 });
-
-const phoneData = ref('');
-const emailData = ref('');
 
 watch(phoneData, () => {
   formData.value.phone = phoneData.value.replace(/[^+\d]/g, '');
@@ -35,13 +37,10 @@ watch(formData.value, () => {
   }
 });
 
-const responseError = ref('');
-const errorPhoto = ref(false);
-const callBackErrorPhoto = (e) => {
-  errorPhoto.value = e;
+const callBackErrorPhoto = (e: boolean) => {
+  isErrorPhoto.value = e;
 };
 
-// @ts-ignore
 const emailRegex = helpers.regex(
   /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/,
 );
@@ -59,32 +58,18 @@ const rules = {
   photo: { required },
 };
 
-const v$ = useVuelidate(rules, formData);
-const submitForm = async () => {
+const v$ = useVuelidate<any>(rules, formData);
+const onSubmitForm = async () => {
   isLoading.value = true;
-
   const result = await v$.value.$validate();
-  if (result && !errorPhoto.value) {
-    const formSend = new FormData();
-    formSend.append('name', formData.value.name);
-    formSend.append('email', formData.value.email);
-    formSend.append('phone', formData.value.phone);
-    formSend.append('position_id', formData.value.position_id);
-    formSend.append('photo', formData.value.photo);
 
-    const { data: response, error } = await useFetch('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
-      method: 'post',
-      body: formSend,
-      headers: {
-        Token: tokenStore,
-      },
-    });
-    if (response?.value?.success) {
-      await storeUsers.fetchUsers();
-      storeUsers.resetPages();
+  if (result && !isErrorPhoto.value) {
+    const response: ResUser = await storeUsers.sendUser(formData.value);
+
+    if (response.success) {
       isSent.value = true;
     } else {
-      responseError.value = error.value.data.message;
+      responseError.value = response.message;
     }
   }
   isLoading.value = false;
@@ -92,7 +77,7 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <section class="post-section" id="post-section">
+  <section id="post-section" class="post-section">
     <Transition>
       <BaseLoader v-show="isLoading" />
     </Transition>
@@ -100,7 +85,7 @@ const submitForm = async () => {
       <div class="post-section__body">
         <template v-if="!isSent">
           <h2 class="post-section__title title">Working with POST request</h2>
-          <form class="post-section__form" @submit.prevent="submitForm">
+          <form class="post-section__form" @submit.prevent="onSubmitForm">
             <BaseInput
               v-model="formData.name"
               class="post-section__input"

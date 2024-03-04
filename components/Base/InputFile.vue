@@ -15,11 +15,11 @@ const props = defineProps({
 });
 const emit = defineEmits(['update:modelValue']);
 
-const imageFile = ref<File>();
-const isErrorPhoto = ref<Boolean>(false);
-const isCorrectPhotoSizes = ref<Boolean>(false);
-const errorsMessagePhoto = ref<String[]>([]);
-const sizeInMB = ref<Number>();
+const imageFile = ref<File | null>(null);
+const isErrorPhoto = ref<boolean>(false);
+const isCorrectPhotoSizes = ref<boolean>(false);
+const errorsMessagePhoto = ref<string[]>([]);
+const sizeInMB = ref<number>();
 const setItems = (file: FileList) => {
   if (file) {
     imageFile.value = file[0];

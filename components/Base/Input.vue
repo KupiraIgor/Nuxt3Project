@@ -61,10 +61,10 @@ const onBlurInput = () => {
         :value="modelValue"
         inputmode="numeric"
         class="base-input__input"
+        maxlength="17"
         @input="emit('update:modelValue', $event.target.value)"
         @focus="onFocusInput"
         @blur="onBlurInput"
-        maxlength="17"
       />
 
       <input

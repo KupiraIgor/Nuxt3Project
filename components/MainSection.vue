@@ -18,7 +18,7 @@ const onScrollToSingUp = () => {
           class="main-section__img"
           src="./first-section-bg.jpg"
           alt="bg-img"
-          :imgAttrs="{ style: 'width:100%; height:100%; object-fit: cover;' }"
+          :img-attrs="{ style: 'width:100%; height:100%; object-fit: cover;' }"
         />
         <div class="main-section__content">
           <h1 class="main-section__title title">Test assignment for front-end developer</h1>
