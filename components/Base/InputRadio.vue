@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import type { IPosition } from '~/models/IPosition';
-
 const props = defineProps({
   modelValue: {
     type: Number,
     default: 0,
   },
   data: {
-    type: Object as () => IPosition,
+    type: Object,
     required: true,
   },
 });

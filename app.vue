@@ -1,5 +1,4 @@
 <script setup>
-import { useTokenStore } from '@/store/token';
 const store = useTokenStore();
 
 store.fetchToken();

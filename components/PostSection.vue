@@ -1,8 +1,6 @@
 <script setup>
 import { useVuelidate } from '@vuelidate/core';
 import { required, minLength, maxLength, alpha, helpers } from '@vuelidate/validators';
-import { useTokenStore } from '@/store/token';
-import { useUsersStore } from '@/store/users';
 const storeToken = useTokenStore();
 const storeUsers = useUsersStore();
 const { token: tokenStore } = storeToRefs(storeToken);
@@ -151,10 +149,10 @@ const submitForm = async () => {
             </div>
           </form>
         </template>
-        <template v-show="isSent">
+        <div v-show="isSent">
           <h2 class="post-section__title title">User successfully registered</h2>
           <img src="/success-form.svg" alt="" />
-        </template>
+        </div>
       </div>
     </div>
   </section>

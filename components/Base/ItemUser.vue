@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { IUser } from '~/models/IUser';
+import type { User } from '~/stores/types';
 
 const props = defineProps({
   user: {
-    type: Object as () => IUser,
+    type: Object as () => User,
     required: true,
   },
 });

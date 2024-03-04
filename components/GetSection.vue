@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { useUsersStore } from '~/store/users';
 const store = useUsersStore();
 const isLoading = ref<Boolean>(false);
 
 store.fetchUsers();
 
-const users = computed(() => store.getUsers);
-const totalPages = computed(() => store.getTotalPages);
-const currentPage = computed(() => store.getCurrentPage);
+const { users, totalPages, currentPage } = storeToRefs(store);
 
 const onShowMore = async () => {
   isLoading.value = true;
@@ -30,7 +27,7 @@ const onShowMore = async () => {
         </ClientOnly>
       </div>
       <div class="get-section__btn">
-        <BaseButton v-if="totalPages > currentPage" @click="onShowMore">Show more</BaseButton>
+        <BaseButton v-show="totalPages > currentPage" @click="onShowMore">Show more</BaseButton>
       </div>
     </div>
   </section>

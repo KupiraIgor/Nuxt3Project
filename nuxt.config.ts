@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     [
       '@pinia/nuxt',
       {
-        autoImports: ['defineStore', 'acceptHMRUpdate'],
+        autoImports: ['defineStore'],
       },
     ],
 
@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
   ],
   imports: {
-    dirs: ['./store'],
+    dirs: ['./stores'],
   },
   image: {
     provider: 'netlify',
