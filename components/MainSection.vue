@@ -18,6 +18,8 @@ const onScrollToSingUp = () => {
           class="main-section__img"
           src="./first-section-bg.jpg"
           alt="bg-img"
+          format="webp"
+          quality="80"
           :img-attrs="{ style: 'width:100%; height:100%; object-fit: cover;' }"
         />
         <div class="main-section__content">
