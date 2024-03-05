@@ -14,14 +14,7 @@ const onScrollToSingUp = () => {
   <section class="main-section">
     <div class="container">
       <div class="main-section__body">
-        <NuxtPicture
-          class="main-section__img"
-          src="./first-section-bg.jpg"
-          alt="bg-img"
-          format="webp"
-          quality="80"
-          :img-attrs="{ style: 'width:100%; height:100%; object-fit: cover;' }"
-        />
+        <NuxtImg format="webp" class="main-section__img" src="./first-section-bg.jpg" alt="bg-img" quality="80" />
         <div class="main-section__content">
           <h1 class="main-section__title title">Test assignment for front-end developer</h1>
           <p class="main-section__subtitle">
@@ -59,7 +52,7 @@ const onScrollToSingUp = () => {
     }
   }
 
-  picture {
+  &__img {
     position: absolute;
     top: 0;
     left: 0;
