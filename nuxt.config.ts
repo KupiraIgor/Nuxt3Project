@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     dirs: ['./stores'],
   },
   image: {
-    provider: 'netlify',
+    quality: 80,
+    format: ['webp'],
   },
 });

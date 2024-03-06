@@ -14,7 +14,7 @@ const onScrollToSingUp = () => {
   <section class="main-section">
     <div class="container">
       <div class="main-section__body">
-        <NuxtImg format="webp" class="main-section__img" src="./first-section-bg.jpg" alt="bg-img" quality="80" />
+        <NuxtImg class="main-section__img" src="./first-section-bg.jpg" alt="bg-img" />
         <div class="main-section__content">
           <h1 class="main-section__title title">Test assignment for front-end developer</h1>
           <p class="main-section__subtitle">
