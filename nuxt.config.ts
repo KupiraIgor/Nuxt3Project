@@ -16,7 +16,13 @@ export default defineNuxtConfig({
     dirs: ['./stores'],
   },
   image: {
-    quality: 80,
-    format: ['webp'],
+    provider: 'netlify',
+    cloudinary: {
+      baseURL: 'https://master--merry-pithivier-e56fe1.netlify.app/',
+      modifiers: {
+        effect: 'sharpen:100',
+        quality: 'auto:best',
+      },
+    },
   },
 });
