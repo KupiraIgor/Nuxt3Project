@@ -16,12 +16,14 @@ export default defineNuxtConfig({
     dirs: ['./stores'],
   },
   image: {
-    provider: 'netlify',
-    cloudinary: {
-      baseURL: 'https://master--merry-pithivier-e56fe1.netlify.app/',
-      modifiers: {
-        effect: 'sharpen:100',
-        quality: 'auto:best',
+    providers: {
+      myProvider: {
+        name: 'netlify', // optional value to overrider provider name
+        provider: '~/providers/my-provider.ts', // Path to custom provider
+        options: {
+          // ... provider options
+          baseURL: 'https://master--merry-pithivier-e56fe1.netlify.app/',
+        },
       },
     },
   },
