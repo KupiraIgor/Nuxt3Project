@@ -51,15 +51,7 @@ const localValue = computed({
     border: 1px solid #00bdd3;
 
     &::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 1rem;
-      height: 1rem;
-      border-radius: 50%;
-      background: #00bdd3;
+      opacity: 1;
     }
   }
 
@@ -71,6 +63,21 @@ const localValue = computed({
     border-radius: 50%;
     border: 1px solid var(--color-gray);
     margin-right: 1.2rem;
+    transition: border-color 0.2s ease;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      background: #00bdd3;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
   }
 }
 </style>
